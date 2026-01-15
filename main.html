@@ -1,13 +1,52 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promises and Chains</title>
+</head>
+<body>
 
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+  <h2>Voting Form</h2>
 
-  <body>
-    <!-- write the body here -->
+  <form id="form">
+    <input type="number" id="age" placeholder="Enter age"><br><br>
+    <input type="text" id="name" placeholder="Enter name"><br><br>
+    <button type="submit" id="btn">Submit</button>
+  </form>
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+  <script>
+    const form = document.getElementById("form");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const age = document.getElementById("age").value;
+      const name = document.getElementById("name").value;
+
+      if (age === "" || name === "") {
+        alert("Please enter valid details.");
+        return;
+      }
+
+      const votingPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (age > 18) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, 4000);
+      });
+
+      votingPromise
+        .then(() => {
+          alert(`Welcome, ${name}. You can vote.`);
+        })
+        .catch(() => {
+          alert(`Oh sorry ${name}. You aren't old enough.`);
+        });
+    });
+  </script>
+
+</body>
 </html>
