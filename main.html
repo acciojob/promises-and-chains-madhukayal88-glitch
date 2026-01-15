@@ -1,52 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Promises and Chains</title>
-</head>
-<body>
+<script>
+  const form = document.getElementById("form");
 
-  <h2>Voting Form</h2>
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  <form id="form">
-    <input type="number" id="age" placeholder="Enter age"><br><br>
-    <input type="text" id="name" placeholder="Enter name"><br><br>
-    <button type="submit" id="btn">Submit</button>
-  </form>
+    const age = document.getElementById("age").value;
+    const name = document.getElementById("name").value;
 
-  <script>
-    const form = document.getElementById("form");
+    if (age === "" || name === "") {
+      alert("Please enter valid details"); // ← no dot
+      return;
+    }
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const age = document.getElementById("age").value;
-      const name = document.getElementById("name").value;
-
-      if (age === "" || name === "") {
-        alert("Please enter valid details.");
-        return;
-      }
-
-      const votingPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (age > 18) {
-            resolve();
-          } else {
-            reject();
-          }
-        }, 4000);
-      });
-
-      votingPromise
-        .then(() => {
-          alert(`Welcome, ${name}. You can vote.`);
-        })
-        .catch(() => {
-          alert(`Oh sorry ${name}. You aren't old enough.`);
-        });
+    const votingPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (age > 18) {
+          resolve();
+        } else {
+          reject();
+        }
+      }, 4000);
     });
-  </script>
 
-</body>
-</html>
+    votingPromise
+      .then(() => {
+        alert(`Welcome, ${name}. You can vote.`);
+      })
+      .catch(() => {
+        alert(`Oh sorry ${name}. You aren't old enough.`);
+      });
+  });
+</script>
